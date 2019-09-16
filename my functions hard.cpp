@@ -312,5 +312,3 @@ long Symb_Counter (char* str, char c)
 
     return counter;
 }
-
-
