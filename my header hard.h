@@ -55,6 +55,7 @@ char* Create_Str (long* length, const char* file_read);
 
 
 //TESTS
+void UniTest (void);
 
 void File_Clean_Test (void);
 
@@ -67,4 +68,5 @@ void Is_Larger_Str_Test (void);
 void Is_Larger_Str_Reverse_Test (void);
 
 #endif // MY_HEADER_H_INCLUDED
+
 
