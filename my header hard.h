@@ -17,6 +17,8 @@ typedef struct {
     char* end;
     }poem_line;
 
+char* File_Reader (char* file_name, long* num_lines, long* num_symb);
+
 void Greet (char** file_read, char** file_write);
 
 long Str_Length (char* str);
@@ -67,6 +69,7 @@ void Is_Larger_Str_Test (void);
 
 void Is_Larger_Str_Reverse_Test (void);
 
-#endif // MY_HEADER_H_INCLUDED
+void Swap (void);
 
+#endif // MY_HEADER_H_INCLUDED
 
