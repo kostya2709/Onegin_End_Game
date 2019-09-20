@@ -4,7 +4,20 @@
 #include <math.h>
 #include "my header hard.h"
 
+void UniTest ()
+{
+    File_Clean_Test();
 
+    Str_Length_Test ();
+
+    Qsort_Test ();
+
+    Is_Larger_Str_Test ();
+
+    Is_Larger_Str_Reverse_Test ();
+
+    Swap ();
+}
 
 void File_Clean_Test (void)
 {
@@ -31,8 +44,8 @@ void File_Clean_Test (void)
 }
 
 void Str_Length_Test (void)
-{
-    // TEST 1
+{                 //00000000001111111111222222222233333333334444444444
+    // TEST 1     //01234567890123456789012345678901234567890123456789
     char* string = "With great power comes great responsibility!";
     long length = Str_Length (string);
     if (length == 44)
@@ -44,7 +57,7 @@ void Str_Length_Test (void)
     //  TEST 2
     length = rand() % 100;
     string = (char*) calloc (length, 1);
-    int i;
+    int i = 0;
     for (i = 0; i < length; i++)
         *(string + i) = 'a' + rand() % 26;
     if (length == Str_Length (string))
@@ -186,7 +199,7 @@ void Is_Larger_Str_Reverse_Test()
 
     result = Is_Larger_Str_Reverse (&word1, &word2);
     if (result != 1)
-        printf ("Error! The first Is_Larger_Str_Reverse test failed! Expected 1, received %d!\n", result);
+         printf ("Error! The first Is_Larger_Str_Reverse test failed! Expected 1, received %d!\n", result);
     else printf ("Great! The first Is_Larger_Str_Reverse comparing test is o'kay!\n");
 
     //TEST 2
@@ -198,7 +211,7 @@ void Is_Larger_Str_Reverse_Test()
 
     result = Is_Larger_Str_Reverse (&word1, &word2);
     if (result <= 0)
-        printf ("Error! The second Is_Larger_Str_Reverse test failed! Expected 1, received %d!\n", result);
+         printf ("Error! The second Is_Larger_Str_Reverse test failed! Expected 1, received %d!\n", result);
     else printf ("Great! The second Is_Larger_Str_Reverse comparing test is o'kay!\n");
 
     // TEST 3
@@ -210,7 +223,7 @@ void Is_Larger_Str_Reverse_Test()
 
     result = Is_Larger_Str_Reverse (&word1, &word2);
     if (result >= 0)
-        printf ("Error! The third Is_Larger_Str_Reverse test failed! Expected 1, received %d!\n", result);
+         printf ("Error! The third Is_Larger_Str_Reverse test failed! Expected 1, received %d!\n", result);
     else printf ("Great! The third Is_Larger_Str_Reverse comparing test is o'kay!\n");
 
     //TEST 4
@@ -222,7 +235,7 @@ void Is_Larger_Str_Reverse_Test()
 
     result = Is_Larger_Str_Reverse (&word1, &word2);
     if (result != 0)
-        printf ("Error! The fourth Is_Larger_Str_Reverse test failed! Expected 0, received %d!\n", result);
+         printf ("Error! The fourth Is_Larger_Str_Reverse test failed! Expected 0, received %d!\n", result);
     else printf ("Great! The fourth Is_Larger_Str_Reverse comparing test is o'kay!\n");
 
     //TEST 5
@@ -239,5 +252,40 @@ void Is_Larger_Str_Reverse_Test()
 
     free (word1.start);
     free (word2.start);
+}
+
+void Swap (void)
+{
+    //TEST 1
+    int a = rand()%1000 - 500;
+    int b = rand()%1000 - 500;
+    int a1 = a;
+    int b1 = b;
+    Swap (&a, &b, sizeof (int));
+    if (a == b1 && b == a1)
+        printf ("Great! The first Swap test is passed!\n");
+    else printf ("Error! The first Swap test has failed! Expected a = %d, b = %d!, received a = %d, b = %d\n", b1, a1, a, b);
+
+    //TEST 2
+    poem_line str1 = *((poem_line*)calloc(20, 1));
+    poem_line str2 = *((poem_line*)calloc(20, 1));
+    poem_line str3 = *((poem_line*)calloc(20, 1));
+    poem_line str4 = *((poem_line*)calloc(20, 1));
+    str1.start = "I am exhausted! :(";
+    str2.start = "Me too!";
+    str3.start = "Me too!";
+    str4.start = "I am exhausted! :(";
+
+    Swap (&str1.start, &str2.start, sizeof(char*));
+
+    if ((!(Is_Larger_Str (&str1.start, &str3.start))) && (!(Is_Larger_Str (&str2.start, &str4.start))))
+        printf ("Great! The second Swap test is passed!\n\n");
+    else printf ("Error! The second Swap test has failed! Expected a = %s, b = %s, received a = %s, b = %s\n\n", &str3.start, &str4.start, &str1.start, &str2.start);
+
+    free (str1.start);
+    free (str2.start);
+    free (str3.start);
+    free (str4.start);
+
 }
 
