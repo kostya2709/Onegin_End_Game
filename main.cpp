@@ -6,46 +6,38 @@
 #include <math.h>
 #include "my header hard.h"
 
+#define DO( what )                   \
+    printf ("Doing " #what "...\n"); \
+    what;                            \
+    printf ("End "  #what "...\n\n");
 
 int main ()
 {
     UniTest();
 
-    char* file_read = "go.txt";
+    char* file_read  = "file_read.txt";
     char* file_write = "file_write.txt";
 
     //GO_GREET Greet (&file_read, &file_write);
 
-    File_Clean (file_write);
-    PRINTF ("Clean\n");
+    long fsize = 0;
+    long num_lines = 0;
+    char* my_string = File_Reader (file_read, &num_lines, &fsize);
 
-    long fsize = ReadFileLength (file_read);
-    PRINTF ("Number of symbols in the text = %ld\n", fsize);
+    DO ( poem_line* pointer = StringMaker (my_string, fsize, num_lines); )
 
-    char* my_string = Create_Str (&fsize, file_read);
-    PRINTF ("The REAL size is %d\n", fsize);
+    DO ( Qsort (0, num_lines - 1, pointer, sizeof (pointer[0]), Is_Larger_Str); )
 
-    long num_lines = Symb_Counter (my_string, '\n');
-    PRINTF ("There are %ld lines in the file.\n", num_lines);
-    poem_line* pointer = StringMaker (my_string, fsize, num_lines);
-    PRINTF ("pOEM\n");
+    DO ( File_Clean (file_write); )
 
-    PRINTF ("MY\n");
+    DO ( WriteFile (file_write, num_lines, pointer); )
 
-    Qsort (0, num_lines - 1, pointer, sizeof (pointer[0]), Is_Larger_Str);
-    PRINTF ("Qsort\n");
+    DO ( Qsort (0, num_lines - 1, pointer, sizeof (pointer[0]), Is_Larger_Str_Reverse); )
 
-    WriteFile (file_write, num_lines, pointer);
-    PRINTF ("Write File\n");
+    DO ( WriteFile (file_write, num_lines, pointer); )
 
-    Qsort (0, num_lines - 1, pointer, sizeof (pointer[0]), Is_Larger_Str_Reverse);
-    PRINTF ("Qsort2\n");
+    DO ( free (my_string); )
 
-    WriteFile (file_write, num_lines, pointer);
-    PRINTF ("WRITE FILE 2\n");
-
-    free (my_string);
-    PRINTF ("FREEE\n");
     my_string = NULL;
 
     return 0;
